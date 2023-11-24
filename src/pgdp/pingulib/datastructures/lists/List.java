@@ -7,9 +7,9 @@ public class List {
 	private int size;
 
 	List() {
-		// TODO
+		this.head = null;
+		this.tail = null;
 	}
-
 	/*
 	 * returns size/length of the list
 	 */
@@ -21,30 +21,46 @@ public class List {
 	 * returns <true> if the list is empty, otherwise <false>
 	 */
 	public boolean isEmpty() {
-		// TODO
-		return false;
+		return head ==null;
 	}
 
 	/*
 	 * removes all elements from the list
 	 */
 	public void clear() {
-		// TODO
+		this.head = null;
+		this.tail = null;
+		size =0;
 	}
 
 	/*
 	 * adds an element at the end of the list
 	 */
 	public void add(int element) {
-		// TODO
+		size++;
+		tail.next = new Element(element);
+		tail = tail.next;
 	}
 
 	/*
 	 * adds an element at the specified index
 	 */
 	public boolean add(int index, int element) {
-		// TODO
-		return false;
+		if(index == 0){
+			head = new Element(element, head);
+			return true;
+		}
+		if(index == size-1){
+			tail.next = new Element(element);
+			tail=tail.next;
+			return true;
+		}
+		Element x = head;
+		for(int i = 0; i<index-1;i++){
+			x=x.next;
+		}
+		x.next = new Element(element, x.next);
+		return true;
 	}
 
 	/*
@@ -52,15 +68,25 @@ public class List {
 	 * (minimum value of an integer) iff. such an element does not exist.
 	 */
 	public int get(int index) {
-		// TODO
-		return 0;
+		if(index>size)return Integer.MIN_VALUE;
+		Element x = head;
+		for(int i = 0; i<index;i++){
+			x= x.next;
+		}
+		return x.value;
 	}
 
 	/*
 	 * removes the element at the specified index
 	 */
 	public void remove(int index) {
-		// TODO
+		Element x = head;
+		for(int i = 0; i<index-1;i++){
+			x=x.next;
+		}
+		x.next = x.next.next;
+
+
 	}
 
 	/*
@@ -87,11 +113,13 @@ public class List {
 		private Element next;
 
 		Element(int value) {
-			// TODO
+			this.value = value;
+			this.next = null;
 		}
 
 		Element(int value, Element next) {
-			// TODO
+			this.value = value;
+			this.next = next;
 		}
 
 		/*
@@ -102,5 +130,6 @@ public class List {
 			return "" + value;
 		}
 	}
+
 
 }
